@@ -35,8 +35,8 @@
         <span class="eyebrow red">On the platform</span>
         <div class="s-name">${esc(cur.name)}</div>
         <div class="s-meta">${meta(cur, st)}</div>
-        <div class="s-weight">${PL.fmt(a.w) || '—'}<small>kg</small></div>
         ${PL.platesHtml(a.w, m.settings)}
+        <div class="s-weight">${PL.fmt(a.w) || '—'}<small>kg</small></div>
       </div>
       <div class="s-side">
         ${PL.lightsHtml(st, 'big')}

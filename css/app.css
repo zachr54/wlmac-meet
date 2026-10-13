@@ -210,9 +210,9 @@ input[type=date]{color-scheme:dark}
 .s-name{font-family:var(--font-display);font-size:min(10.5vh,6.4vw);line-height:.98;text-transform:uppercase;overflow-wrap:anywhere}
 .s-meta{display:flex;flex-wrap:wrap;gap:.8vw;font-family:var(--font-heading);font-weight:600;font-size:2.8vh;letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--gray-300)}
 .s-meta i{color:var(--red-600);font-style:normal}
-.s-weight{font-family:var(--font-display);font-size:min(25vh,15vw);line-height:.88;color:var(--red-500);font-variant-numeric:tabular-nums}
-.s-weight small{font-family:var(--font-heading);font-weight:700;font-size:.2em;color:var(--gray-500);margin-left:.12em;text-transform:uppercase}
-.stage .plates{--ph:9vh}
+.s-weight{font-family:var(--font-display);font-size:min(9.5vh,5.6vw);line-height:.95;color:var(--red-500);font-variant-numeric:tabular-nums}
+.s-weight small{font-family:var(--font-heading);font-weight:700;font-size:.42em;color:var(--gray-500);margin-left:.12em;text-transform:uppercase}
+.stage .plates{--ph:min(25vh,13.5vw);margin:1vh 0}
 .stage .plate-note{font-size:2vh}
 .s-side{display:flex;flex-direction:column;align-items:center;gap:5vh}
 .lights.big{--ls:min(22vh,11.5vw);--lg:2vw}
