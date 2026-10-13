@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#060606">
 <title>WLMAC Meet</title>
 <link rel="icon" href="assets/wlmac-crest-t.png">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/tokens.css?v=3">
+<link rel="stylesheet" href="css/app.css?v=3">
 </head>
 <body class="page-home">
 <main class="home">
@@ -26,9 +26,10 @@
   <a class="btn ghost" id="director">Run a meet (execs)</a>
   <a class="home-demo" href="director.html?m=DEMO&demo=1">Try the demo meet</a>
 </main>
-<script src="js/config.js"></script>
-<script src="js/scoring.js"></script>
-<script src="js/backend.js"></script>
+<script>window.PL_BUILD = '3';</script>
+<script src="js/config.js?v=3"></script>
+<script src="js/scoring.js?v=3"></script>
+<script src="js/backend.js?v=3"></script>
 <script>
   document.getElementById('director').href = PL.url('director.html');
   document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {

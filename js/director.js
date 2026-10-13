@@ -185,7 +185,7 @@
   const field = (label, inner) => '<label class="field"><span>' + label + '</span>' + inner + '</label>';
   const shell = (inner, right) => `
     <header class="top">
-      <a class="brand" href="${PL.url('index.html')}"><img src="assets/wlmac-crest-t.png" alt=""><span><b>WLMAC Meet</b><small>Director</small></span></a>
+      <a class="brand" href="${PL.url('index.html')}"><img src="assets/wlmac-crest-t.png" alt=""><span><b>WLMAC Meet</b><small>Director · build ${esc(PL.build)}</small></span></a>
       <div class="top-right">${right || ''}</div>
     </header>${PL.demo ? '<div class="demo-strip">Demo mode — data lives only in this browser. Open the display and referee pages in other tabs to see them sync.</div>' : ''}
     <main class="wrap">${inner}</main>`;

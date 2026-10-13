@@ -17,6 +17,19 @@
   };
   PL.absUrl = (page, params) => new URL(PL.url(page, params), location.href).href;
 
+  // A page served from the browser's cache can be an older release than the site. Compare with
+  // version.txt (never cached) and reload once if so. To release: bump the number in version.txt
+  // and in every page's PL_BUILD / ?v= tags.
+  PL.build = window.PL_BUILD || 'dev';
+  if (location.protocol.startsWith('http')) {
+    fetch('version.txt', { cache: 'no-store' }).then(r => (r.ok ? r.text() : '')).then(v => {
+      v = v.trim();
+      if (!v || v === PL.build || sessionStorage.getItem('plmeet.reloaded') === v) return;
+      sessionStorage.setItem('plmeet.reloaded', v);
+      location.reload();
+    }).catch(() => {});
+  }
+
   const pick = (alphabet, n) => {
     const buf = new Uint32Array(n);
     crypto.getRandomValues(buf);
