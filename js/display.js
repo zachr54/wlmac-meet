@@ -35,8 +35,11 @@
         <span class="eyebrow red">On the platform</span>
         <div class="s-name">${esc(cur.name)}</div>
         <div class="s-meta">${meta(cur, st)}</div>
-        ${PL.platesHtml(a.w, m.settings)}
-        <div class="s-weight">${PL.fmt(a.w) || '—'}<small>kg</small></div>
+        <div class="load">
+          <div class="load-head"><span class="s-weight">${PL.fmt(a.w) || '—'}<small>kg</small></span><span class="load-note">Bar ${PL.fmt(m.settings.barKg)} kg · collars ${PL.fmt(m.settings.collarKg)} kg</span></div>
+          ${PL.platesHtml(a.w, m.settings)}
+          <div class="load-list">${PL.loadText(a.w, m.settings)}</div>
+        </div>
       </div>
       <div class="s-side">
         ${PL.lightsHtml(st, 'big')}

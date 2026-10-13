@@ -212,7 +212,12 @@ input[type=date]{color-scheme:dark}
 .s-meta i{color:var(--red-600);font-style:normal}
 .s-weight{font-family:var(--font-display);font-size:min(9.5vh,5.6vw);line-height:.95;color:var(--red-500);font-variant-numeric:tabular-nums}
 .s-weight small{font-family:var(--font-heading);font-weight:700;font-size:.42em;color:var(--gray-500);margin-left:.12em;text-transform:uppercase}
-.stage .plates{--ph:min(25vh,13.5vw);margin:1vh 0}
+/* Attempt weight is the caption of the loading diagram: one panel, weight on top, bar underneath. */
+.load{align-self:flex-start;min-width:62%;max-width:100%;margin-top:1.2vh;background:var(--black);border:1px solid var(--ink-700);border-radius:var(--radius-md);overflow:hidden}
+.load-head{display:flex;align-items:baseline;justify-content:space-between;gap:2vw;padding:1.5vh 1.6vw 1.1vh;border-bottom:1px solid var(--ink-700);background:var(--ink-800)}
+.load-note,.load-list{font-family:var(--font-heading);font-weight:600;font-size:2.1vh;letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--gray-400);white-space:nowrap}
+.load-list{padding:0 1.6vw 1.6vh;color:var(--gray-300);font-variant-numeric:tabular-nums}
+.stage .plates{--ph:min(20vh,11vw);margin:2.2vh 1.6vw 1.6vh}
 .stage .plate-note{font-size:2vh}
 .s-side{display:flex;flex-direction:column;align-items:center;gap:5vh}
 .lights.big{--ls:min(22vh,11.5vw);--lg:2vw}

@@ -88,6 +88,14 @@
     return '<div class="plates"><span class="plate-bar"></span>' + chips + '<i class="plate collar"></i><span class="plate-end"></span>' + note + '</div>';
   };
 
+  // The same load in words, for loaders: "Each side: 25 ×2 · 20 · 1.25".
+  PL.loadText = (weight, settings) => {
+    if (!(+weight > 0)) return "";
+    const groups = [];
+    PL.plates(weight, settings.barKg, settings.collarKg).plates.forEach(p => { const g = groups[groups.length - 1]; if (g && g[0] === p) g[1]++; else groups.push([p, 1]); });
+    return groups.length ? "Each side: " + groups.map(g => g[0] + (g[1] > 1 ? " ×" + g[1] : "")).join(" · ") : "Empty bar";
+  };
+
   PL.attemptCell = (lifter, lift, idx, current) => {
     const a = PL.attempt(lifter, lift, idx);
     const cls = (a.r === 'good' ? ' good' : a.r === 'no' ? ' no' : '') + (current ? ' cur' : '');
