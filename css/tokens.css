@@ -1,0 +1,135 @@
+﻿/* WLMAC Fitness Club design tokens - copied from the club app's design system. */
+/* Self-hosted Google Fonts via Fontsource CDN (jsDelivr). Substituted fonts â€” no brand font files were supplied. Flagged in readme.md. */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/anton@latest/latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow-condensed@latest/latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow-condensed@latest/latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow-condensed@latest/latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:800;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow-condensed@latest/latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow@latest/latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow@latest/latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow@latest/latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/barlow@latest/latin-700-normal.woff2) format('woff2')}
+
+:root{
+--black:#0a0a0a;
+--ink-900:#121212;
+--ink-800:#1b1b1b;
+--ink-700:#262626;
+--ink-600:#3a3a3a;
+--gray-500:#6e6e6e;
+--gray-400:#8f8f8f;
+--gray-300:#b6b6b6;
+--gray-200:#d9d9d9;
+--gray-100:#efefef;
+--white:#ffffff;
+--red-900:#5c0d17;
+--red-800:#7a0f1c;
+--red-700:#9c1522;
+--red-600:#c8102e;
+--red-500:#e21b3c;
+--red-400:#ef4a5a;
+--red-100:#fbdde1;
+--gold-600:#c9a13b;
+--gold-400:#e2c876;
+--green-600:#2e7d4f;
+--amber-600:#c77c1f;
+
+--surface-page:var(--black);
+--surface-sunken:#000000;
+--surface-card:var(--ink-900);
+--surface-card-raised:var(--ink-800);
+--surface-inverse:var(--white);
+--surface-accent:var(--red-600);
+--surface-accent-hover:var(--red-500);
+--surface-accent-press:var(--red-800);
+
+--text-primary:var(--white);
+--text-secondary:var(--gray-300);
+--text-tertiary:var(--gray-400);
+--text-on-accent:var(--white);
+--text-inverse:var(--black);
+--text-accent:var(--red-500);
+
+--border-default:var(--ink-600);
+--border-strong:var(--gray-500);
+--border-accent:var(--red-600);
+--border-hairline-on-light:var(--gray-200);
+
+--focus-ring:var(--red-400);
+--status-success:var(--green-600);
+--status-warning:var(--amber-600);
+--status-danger:var(--red-500);
+}
+
+:root{
+--font-display:'Anton',Impact,'Arial Narrow',sans-serif;
+--font-heading:'Barlow Condensed',sans-serif;
+--font-body:'Barlow',system-ui,sans-serif;
+--font-mono:'Barlow Condensed',monospace;
+
+--tracking-tight:-0.01em;
+--tracking-normal:0em;
+--tracking-wide:0.04em;
+--tracking-wider:0.12em;
+--tracking-widest:0.2em;
+
+--text-display-xl:88px;
+--text-display-lg:64px;
+--text-display-md:48px;
+--text-h1:40px;
+--text-h2:32px;
+--text-h3:24px;
+--text-h4:20px;
+--text-body-lg:18px;
+--text-body:16px;
+--text-body-sm:14px;
+--text-caption:12px;
+--text-eyebrow:13px;
+
+--leading-tight:1.05;
+--leading-snug:1.2;
+--leading-normal:1.5;
+--leading-relaxed:1.65;
+}
+
+:root{
+--space-1:4px;
+--space-2:8px;
+--space-3:12px;
+--space-4:16px;
+--space-5:20px;
+--space-6:24px;
+--space-8:32px;
+--space-10:40px;
+--space-12:48px;
+--space-16:64px;
+--space-20:80px;
+--space-24:96px;
+--space-32:128px;
+
+--radius-sm:2px;
+--radius-md:4px;
+--radius-lg:8px;
+--radius-pill:999px;
+--radius-none:0px;
+
+--container-max:1200px;
+--stroke-hairline:1px;
+--stroke-default:2px;
+--stroke-thick:3px;
+}
+
+:root{
+--shadow-sm:0 2px 6px rgba(0,0,0,0.4);
+--shadow-md:0 6px 16px rgba(0,0,0,0.5);
+--shadow-lg:0 12px 32px rgba(0,0,0,0.6);
+--shadow-red-glow:0 0 0 3px rgba(200,16,46,0.25);
+--ease-standard:cubic-bezier(.2,.8,.2,1); /* @kind other */
+--ease-out:cubic-bezier(0,0,.2,1); /* @kind other */
+--duration-fast:120ms; /* @kind other */
+--duration-normal:200ms; /* @kind other */
+--duration-slow:320ms; /* @kind other */
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-body)}
+

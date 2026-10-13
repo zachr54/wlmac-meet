@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060606">
+<title>WLMAC Meet</title>
+<link rel="icon" href="assets/wlmac-crest-t.png">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="page-home">
+<main class="home">
+  <img src="assets/wlmac-crest-t.png" alt="WLMAC Fitness Club crest">
+  <h1 class="hero">Three lights.<br>One <span>platform.</span></h1>
+  <div class="rule"></div>
+  <p class="muted">Live scoring for WLMAC Fitness Club powerlifting meets.</p>
+
+  <div class="card">
+    <label class="field"><span>Meet code</span><input id="code" placeholder="e.g. K7RMX2" autocapitalize="characters" autocomplete="off"></label>
+    <div class="home-btns">
+      <button class="btn primary lg" data-go="display">Watch the scoreboard</button>
+      <button class="btn secondary lg" data-go="ref">I’m a referee</button>
+    </div>
+  </div>
+  <a class="btn ghost" id="director">Run a meet (execs)</a>
+  <a class="home-demo" href="director.html?m=DEMO&demo=1">Try the demo meet</a>
+</main>
+<script src="js/config.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/backend.js"></script>
+<script>
+  document.getElementById('director').href = PL.url('director.html');
+  document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
+    const code = document.getElementById('code').value.trim().toUpperCase();
+    if (!code) return document.getElementById('code').focus();
+    location.href = PL.url(b.dataset.go + '.html', b.dataset.go === 'display' ? { meet: code, view: 'board' } : { meet: code });
+  }));
+</script>
+</body>
+</html>
