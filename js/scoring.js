@@ -94,13 +94,20 @@
     return set.length ? set : ['A'];
   };
 
-  // Where the platform goes next: first pending lifter this round, else roll to the next round.
+  // Lifters in the flight with no weight entered for this round: the round can't finish without them.
+  PL.undeclared = (lifters, state) => lifters.filter(l =>
+    (l.flight || 'A') === state.flight && !(+PL.attempt(l, state.lift, state.attempt - 1).w > 0));
+
+  // Where the platform goes next. A round is the whole flight taking one attempt each: first
+  // pending lifter this round, and only once everyone in the flight has lifted does it roll to
+  // the next round. A lifter with no weight entered holds the round open (the director can
+  // still jump rounds by hand).
   PL.nextUp = (lifters, state) => {
     const flight = lifters.filter(l => (l.flight || 'A') === state.flight);
     let attempt = state.attempt;
     let next = PL.pending(flight, state.lift, attempt - 1)[0];
-    const roundStarted = flight.some(l => PL.attempt(l, state.lift, attempt - 1).r);
-    if (!next && attempt < 3 && roundStarted) { attempt += 1; next = PL.pending(flight, state.lift, attempt - 1)[0]; }
+    const roundDone = flight.length > 0 && flight.every(l => PL.attempt(l, state.lift, attempt - 1).r);
+    if (!next && attempt < 3 && roundDone) { attempt += 1; next = PL.pending(flight, state.lift, attempt - 1)[0]; }
     return { attempt, lifterId: next ? next.id : null };
   };
 

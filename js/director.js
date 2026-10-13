@@ -91,7 +91,9 @@
     setFlight: el => act(() => goTo({ flight: el.dataset.v, attempt: 1 })),
     callNext: () => act(() => {
       const m = meet();
-      return patch(Object.assign(PL.nextUp(lifters(), m.state), PL.clearedPlatform(m.settings)));
+      const next = PL.nextUp(lifters(), m.state), waiting = PL.undeclared(lifters(), m.state);
+      if (!next.lifterId && waiting.length) PL.toast("Round " + m.state.attempt + " isn’t finished: no weight entered for " + waiting.map(l => l.name).join(", ") + ".");
+      return patch(Object.assign(next, PL.clearedPlatform(m.settings)));
     }),
     setCurrent: el => act(() => patch(Object.assign({ lifterId: el.dataset.l }, PL.clearedPlatform(meet().settings)))),
     decide: el => act(() => { const st = meet().state; return setResult(current(), st.lift, st.attempt - 1, el.dataset.r || null); }),
@@ -236,6 +238,7 @@
     const cur = current(), a = cur ? PL.attempt(cur, st.lift, idx) : null;
     const votes = PL.POSITIONS.filter(p => st.lights && st.lights[p]).length;
     const order = PL.roundOrder(flight, st.lift, idx);
+    const waiting = PL.undeclared(all, st);
     const status = !cur ? '' : st.revealed
       ? `<span class="verdict ${st.result}">${st.result === 'good' ? 'Good lift' : 'No lift'}</span>`
       : `<span class="muted">${votes ? votes + ' of 3 referees in' : 'Waiting for referees'}</span>`;
@@ -257,7 +260,11 @@
         ${st.revealed || votes ? '<button class="btn ghost sm" data-act="decide" data-r="">Clear decision</button>' : ''}
       </div>` : `
       <div class="plat-empty">Nobody on the platform</div>
-      <p class="muted">Enter attempt weights in the sheet below, then call the next lifter.</p>`;
+      <p class="muted">${waiting.length
+        ? "Round " + st.attempt + " is waiting on attempt weights for " + esc(waiting.map(l => l.name).join(", ")) + ". Enter them in the sheet below, or pick the next round above to carry on without them."
+        : flight.length && flight.every(l => PL.attempt(l, st.lift, idx).r)
+          ? (st.attempt < 3 ? "Round " + st.attempt + " is finished. Call the next lifter to start round " + (st.attempt + 1) + "." : "Flight " + esc(st.flight) + " has finished " + PL.LIFTS[st.lift].toLowerCase() + ". Pick the next flight or lift above.")
+          : "Enter attempt weights in the sheet below, then call the next lifter."}</p>`;
 
     const sheetRows = flight.slice().sort((x, y) => ((x.lot || 9999) - (y.lot || 9999)) || x.name.localeCompare(y.name)).map(l => `
       <tr class="${cur && l.id === cur.id ? 'cur-row' : ''}">
