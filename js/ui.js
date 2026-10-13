@@ -6,17 +6,21 @@
 
   // Replace a region's HTML without disturbing whoever is typing in it: the focused field
   // (matched by data-k), its half-typed value, and scroll positions all survive the redraw.
+  // Fields with an id are free-form (add-lifter form, import box): whatever is in them is kept.
   PL.render = (root, html) => {
     const a = document.activeElement;
-    const key = a && root.contains(a) && a.dataset.k;
+    const inside = a && root.contains(a);
+    const key = inside && a.dataset.k, focusId = inside && a.id;
     let val, start, end;
-    if (key) { val = a.value; try { start = a.selectionStart; end = a.selectionEnd; } catch (e) {} }
+    if (key || focusId) { val = a.value; try { start = a.selectionStart; end = a.selectionEnd; } catch (e) {} }
+    const drafts = Array.from(root.querySelectorAll('input[id],select[id],textarea[id]'), n => [n.id, n.value]);
     const scrolls = Array.from(root.querySelectorAll('[data-scroll]'), n => [n.dataset.scroll, n.scrollTop, n.scrollLeft]);
     root.innerHTML = html;
+    drafts.forEach(([id, v]) => { const n = document.getElementById(id); if (n && root.contains(n)) n.value = v; });
     scrolls.forEach(([k, top, left]) => { const n = root.querySelector('[data-scroll="' + k + '"]'); if (n) { n.scrollTop = top; n.scrollLeft = left; } });
-    if (key) {
-      const n = root.querySelector('[data-k="' + CSS.escape(key) + '"]');
-      if (n) { n.focus(); if (n.tagName === 'INPUT' || n.tagName === 'TEXTAREA') { n.value = val; try { n.setSelectionRange(start, end); } catch (e) {} } }
+    if (key || focusId) {
+      const n = key ? root.querySelector('[data-k="' + CSS.escape(key) + '"]') : document.getElementById(focusId);
+      if (n && root.contains(n)) { n.focus(); if (n.tagName === 'INPUT' || n.tagName === 'TEXTAREA') { n.value = val; try { n.setSelectionRange(start, end); } catch (e) {} } }
     }
   };
 

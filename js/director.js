@@ -14,7 +14,7 @@
   const current = () => lifters().find(l => l.id === meet().state.lifterId) || null;
   const flightOf = l => l.flight || 'A';
   // Every write goes through here: report failures, then re-read so the screen is never stale.
-  const act = fn => PL.run(async () => { await fn(); await refresh(); });
+  const act = fn => PL.run(async () => { await fn(); await refresh(); draw(); });
   const patch = p => api.patchState(S.row.id, p);
   const num = v => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? null : n; };
 
@@ -309,7 +309,7 @@
       <div class="card">
         <span class="eyebrow">Add a lifter</span>
         <div class="row">
-          ${field('Name', '<input id="addName" data-k="add|name" placeholder="Full name">')}
+          ${field('Name', '<input id="addName" placeholder="Full name">')}
           ${field('Sex', '<select id="addSex"><option value="M">M</option><option value="F">F</option></select>')}
           ${field('Bodyweight (kg)', '<input id="addBw" inputmode="decimal" class="short">')}
           ${field('Flight', '<input id="addFlight" value="A" class="short">')}

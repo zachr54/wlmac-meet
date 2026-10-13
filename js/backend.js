@@ -157,7 +157,7 @@
 
   // Keep one meet's public data fresh: push pings when they arrive, slow polling as the safety net.
   PL.live = (code, onData, onError) => {
-    let busy = false, again = false;
+    let busy = false, again = false, last;
     async function refresh() {
       if (busy) { again = true; return; }
       busy = true;
@@ -165,7 +165,9 @@
         const sent = Date.now();
         const data = await PL.api.getPublic(code);
         if (data) PL.offset = data.serverNow - (sent + Date.now()) / 2;
-        onData(data);
+        // Only redraw when something actually changed, so routine polling never disturbs the page.
+        const sig = data ? JSON.stringify([data.meet, data.lifters]) : 'none';
+        if (sig !== last) { last = sig; onData(data); }
       } catch (e) { if (onError) onError(e); }
       busy = false;
       if (again) { again = false; refresh(); }
