@@ -1,6 +1,6 @@
 # WLMAC Meet
 
-Live scoring for WLMAC Fitness Club powerlifting meets: referee lights, attempts, totals, DOTS and IPF GL points. A separate system from the club PWA, sharing its look and its exec logins.
+Live scoring for WLMAC Fitness Club powerlifting meets: referee lights, attempts, totals, DOTS and IPF GL points. A separate site from the club PWA, sharing its look, its exec logins and its powerlifting events (see *Club app link*).
 
 ## Pages
 
@@ -23,11 +23,23 @@ No referee phones? The director's **Good lift** / **No lift** buttons do the sam
 
 ## Setup
 
-1. Run `supabase/schema.sql` in the club's Supabase project (SQL Editor). It only adds `pl_*` tables and functions.
+1. Run `supabase/schema.sql` in the club's Supabase project (SQL Editor), after the club app's own schema. It adds `pl_*` tables and functions, plus the triggers that link meets to the club app's events.
 2. Host this folder as a static site (GitHub Pages works: push the repo, enable Pages on the `main` branch).
 3. Execs log in with their club app account (`profiles.role = 'exec'`).
 
 `js/config.js` holds the Supabase URL and anon key. There is no build step.
+
+## Club app link
+
+Meets and the club app's **Powerlifting** events are kept in step by database triggers (the *Club app link* section of `supabase/schema.sql`):
+
+- A Powerlifting event made in the club app gets a meet here; a meet made here goes on the club app's schedule. Renaming or moving the date on either side updates the other.
+- Members who sign up for the event are added to the meet's lifters, with their name and grade. The director fills in sex, bodyweight and flight, and openers on the Run tab. If someone with the same name was already typed in, the sign-up is linked to them instead of adding a duplicate.
+- Cancelling a sign-up removes that lifter, unless they have already lifted.
+- Deleting a meet deletes its event. Deleting the event deletes the meet only if nobody has lifted yet; otherwise the meet and its results are kept.
+- When the section is first run, upcoming Powerlifting events and upcoming meets are linked up. Past ones are left alone.
+
+Demo mode doesn't touch the club app.
 
 ## Demo mode
 

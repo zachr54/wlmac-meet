@@ -134,7 +134,8 @@
     // ----- setup -----
     newPin: () => { if (confirm('Make a new referee PIN? Referees already signed in will need the new one.')) act(async () => { const pin = PL.newPin(); await api.updateMeet(S.row.id, { ref_pin: pin }); S.row.ref_pin = pin; }); },
     deleteMeet: () => {
-      if (prompt('This deletes the meet and every result in it. Type the meet code to confirm.') !== S.row.code) return;
+      const club = meet() && meet().event_id ? ' It also removes the event from the club app’s schedule.' : '';
+      if (prompt('This deletes the meet and every result in it.' + club + ' Type the meet code to confirm.') !== S.row.code) return;
       PL.run(async () => { await api.deleteMeet(S.row.id); location.href = PL.url('director.html'); });
     },
     copy: el => navigator.clipboard.writeText(el.dataset.copy).then(() => PL.toast('Link copied.'), () => PL.toast('Could not copy — select the link instead.')),
@@ -214,6 +215,7 @@
           ${field('Date', '<input id="newDate" type="date" value="' + new Date().toISOString().slice(0, 10) + '">')}
           <button class="btn primary" data-act="createMeet">Create meet</button>
         </div>
+        ${PL.demo ? '' : '<p class="muted">The meet also goes on the club app’s schedule as a Powerlifting event, and members who sign up there are added as lifters. Powerlifting events made in the club app show up here too.</p>'}
       </div>
       <div class="meet-list">${S.meets.map(m => `
         <a class="card meet-item" href="${PL.url('director.html', { m: m.code })}">
@@ -311,6 +313,7 @@
   }
 
   function viewLifters() {
+    const m = meet(), fromClub = lifters().filter(l => l.profile_id && !l.bodyweight).length;
     const inp = (l, f, extra) => `<input data-k="l|${l.id}|${f}" data-chg="lifter" data-l="${l.id}" data-f="${f}" data-orig="${esc(f === 'bodyweight' ? PL.fmt(l[f]) : l[f] === null || l[f] === undefined ? '' : l[f])}" value="${esc(f === 'bodyweight' ? PL.fmt(l[f]) : l[f] === null || l[f] === undefined ? '' : l[f])}" ${extra || ''}>`;
     return `
       <div class="card">
@@ -328,6 +331,7 @@
           <textarea id="importText" rows="6" placeholder="Sam Okafor, M, 72.4, A, Grade 10"></textarea>
           <button class="btn primary" data-act="importLifters">Import</button></div>` : ''}
       </div>
+      ${m.event_id ? `<p class="muted">Members who sign up for this meet in the club app are added here automatically. Fill in their sex, bodyweight and flight${fromClub ? ` (${fromClub} still need a bodyweight)` : ''}, then enter openers on the Run tab.</p>` : ''}
       <section class="card sheet" data-scroll="lifters">
         <table class="tbl edit">
           <thead><tr><th>Lot</th><th>Name</th><th>Sex</th><th>BW (kg)</th><th>Class</th><th>Team / grade</th><th>Flight</th><th>Squat rack</th><th>Bench rack</th><th></th></tr></thead>
